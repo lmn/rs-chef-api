@@ -89,7 +89,7 @@ pub fn delete_role(client: &ApiClient, name: &str) -> Result<Role> {
 #[derive(Debug)]
 pub struct RoleList {
     count: usize,
-    roles: Vec<String>,
+    pub roles: Vec<String>,
     client: ApiClient,
 }
 
