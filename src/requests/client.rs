@@ -7,14 +7,15 @@ use errors::*;
 pub struct Client {
     #[serde(default)]
     pub name: String,
-    clientname: String,
-    validator: bool,
-    orgname: String,
-    json_class: String,
-    chef_type: String,
+    #[serde(default)] clientname: String,
+    #[serde(default)] validator: bool,
+    #[serde(default)] orgname: String,
+    #[serde(default)] json_class: String,
+    #[serde(default)] chef_type: String,
 }
 
 impl Client {
+
     pub fn show(client: &ApiClient, name: String) -> Result<Client> {
         let org = &client.config.organization_path();
         let path = format!("{}/clients/{}", org, name);
@@ -26,6 +27,13 @@ impl Client {
         let path = format!("{}/clients/{}", org, name);
         client.delete::<Client>(path.as_ref())
     }
+}
+
+
+pub fn delete_client(client: &ApiClient, name: &str) -> Result<Client> {
+    let org = &client.config.organization_path();
+    let path = format!("{}/clients/{}", org, name);
+    client.delete::<Client>(path.as_ref())
 }
 
 // Clients Structure
