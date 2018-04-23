@@ -14,8 +14,8 @@ chef_json_type!(NodeChefType, "node");
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Node {
     #[serde(default)] pub name: Option<String>,
-    #[serde(default)] chef_type: NodeChefType,
-    #[serde(default)] json_class: NodeJsonClass,
+    #[serde(default)] pub chef_type: NodeChefType,
+    #[serde(default)] pub json_class: NodeJsonClass,
     #[serde(default)] pub chef_environment: String,
     #[serde(default)] pub run_list: Vec<String>,
     #[serde(default)] pub normal: HashMap<String, Value>,
