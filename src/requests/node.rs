@@ -14,14 +14,14 @@ chef_json_type!(NodeChefType, "node");
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Node {
     #[serde(default)] pub name: Option<String>,
-    #[serde(default)] pub chef_type: NodeChefType,
-    #[serde(default)] pub json_class: NodeJsonClass,
+    #[serde(default)] chef_type: NodeChefType,
+    #[serde(default)]  json_class: NodeJsonClass,
     #[serde(default)] pub chef_environment: String,
     #[serde(default)] pub run_list: Vec<String>,
     #[serde(default)] pub normal: HashMap<String, Value>,
     #[serde(default)] pub automatic: HashMap<String, Value>,
     #[serde(default)] pub default: HashMap<String, Value>,
-    #[serde(default, rename = "override")] pub overrides: HashMap<String, Value>,
+    #[serde(default, rename = "override")] pub overrides : HashMap<String, Value>,
 }
 
 impl Read for Node {
@@ -62,6 +62,11 @@ impl Node {
         client.put::<&Node, Node>(path.as_ref(), &self)
     }
 
+    pub fn create(&self, client: &ApiClient) -> Result<Node> {
+        let org = &client.config.organization_path();
+        let path = format!("{}/nodes", org);
+        client.post::<&Node, Node>(path.as_ref(), &self)
+    }
     pub fn delete(&self, client: &ApiClient) -> Result<Node> {
         let name = &self.name.clone().unwrap();
         let org = &client.config.organization_path();
