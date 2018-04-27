@@ -15,7 +15,6 @@ pub struct Client {
 }
 
 impl Client {
-
     pub fn show(client: &ApiClient, name: String) -> Result<Client> {
         let org = &client.config.organization_path();
         let path = format!("{}/clients/{}", org, name);
